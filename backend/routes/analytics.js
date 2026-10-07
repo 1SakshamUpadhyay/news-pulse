@@ -322,6 +322,7 @@ router.get("/search", async (req, res) => {
 
 
         // Search headline + description
+
         if (search.trim() !== "") {
 
             filter.$or = [
@@ -338,32 +339,37 @@ router.get("/search", async (req, res) => {
                     }
                 }
             ];
-
         }
 
 
         // Category filter
+        // Frontend sends "All"
+
         if (
             category.trim() !== "" &&
-            category !== "All Categories"
+            category !== "All"
         ) {
             filter.category = category;
         }
 
 
         // Sentiment filter
+        // Frontend sends "All"
+
         if (
             sentiment.trim() !== "" &&
-            sentiment !== "All Sentiments"
+            sentiment !== "All"
         ) {
             filter.sentiment = sentiment.toLowerCase();
         }
 
 
         // Year filter
+        // Frontend sends "All"
+
         if (
             year.trim() !== "" &&
-            year !== "All Years"
+            year !== "All"
         ) {
             filter.date = {
                 $regex: `^${year}`
@@ -409,6 +415,7 @@ router.get("/trending-keywords", async (req, res) => {
         const result = await articles.aggregate([
 
             // Combine headline and description
+
             {
                 $project: {
                     words: {
@@ -438,12 +445,16 @@ router.get("/trending-keywords", async (req, res) => {
                 }
             },
 
+
             // Separate every word
+
             {
                 $unwind: "$words"
             },
 
+
             // Keep alphabetic words with 4+ characters
+
             {
                 $match: {
                     words: {
@@ -452,7 +463,9 @@ router.get("/trending-keywords", async (req, res) => {
                 }
             },
 
+
             // Remove common words
+
             {
                 $match: {
                     words: {
@@ -496,7 +509,9 @@ router.get("/trending-keywords", async (req, res) => {
                 }
             },
 
+
             // Count occurrences
+
             {
                 $group: {
                     _id: "$words",
@@ -506,14 +521,18 @@ router.get("/trending-keywords", async (req, res) => {
                 }
             },
 
+
             // Highest frequency first
+
             {
                 $sort: {
                     count: -1
                 }
             },
 
+
             // Top 15
+
             {
                 $limit: 15
             }
