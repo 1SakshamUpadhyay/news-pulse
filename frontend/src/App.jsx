@@ -3,6 +3,8 @@ import axios from "axios";
 import Plot from "react-plotly.js";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
 
     // =====================================================
@@ -39,11 +41,11 @@ function App() {
                 ] = await Promise.all([
 
                     axios.get(
-                        "http://localhost:5000/api/analytics/dashboard"
+                        `${API_URL}/api/analytics/dashboard`
                     ),
 
                     axios.get(
-                        "http://localhost:5000/api/analytics/trending-keywords"
+                        `${API_URL}/api/analytics/trending-keywords`
                     )
 
                 ]);
@@ -81,7 +83,7 @@ function App() {
             setSearchPerformed(true);
 
             const response = await axios.get(
-                "http://localhost:5000/api/analytics/search",
+                `${API_URL}/api/analytics/search`,
                 {
                     params: {
                         search: searchText,
@@ -91,14 +93,6 @@ function App() {
                     }
                 }
             );
-
-            /*
-             Backend returns:
-             {
-                 total: ...,
-                 articles: [...]
-             }
-            */
 
             setSearchResults(
                 response.data.articles || []
@@ -113,6 +107,7 @@ function App() {
         } finally {
 
             setSearching(false);
+
         }
     };
 
@@ -138,6 +133,7 @@ function App() {
     // =====================================================
 
     if (error) {
+
         return (
             <h2 className="error">
                 {error}
@@ -145,7 +141,9 @@ function App() {
         );
     }
 
+
     if (!data) {
+
         return (
             <h2 className="loading">
                 Loading NewsPulse...
@@ -263,11 +261,13 @@ function App() {
                 sentimentMap[category]?.positive || 0
         );
 
+
     const categoryNeutral =
         topCategoryNames.map(
             category =>
                 sentimentMap[category]?.neutral || 0
         );
+
 
     const categoryNegative =
         topCategoryNames.map(
@@ -285,7 +285,9 @@ function App() {
             .slice(0, 5)
             .map(item => item._id);
 
+
     const trendMap = {};
+
 
     data.categoryTrends.forEach(item => {
 
@@ -295,9 +297,13 @@ function App() {
         const category =
             item._id.category;
 
+
         if (!trendMap[category]) {
+
             trendMap[category] = {};
+
         }
+
 
         trendMap[category][year] =
             item.totalArticles;
@@ -350,9 +356,14 @@ function App() {
         );
 
 
+    // =====================================================
+    // UI
+    // =====================================================
+
     return (
 
         <div className="dashboard">
+
 
             {/* =================================================
                 HEADER
@@ -373,6 +384,7 @@ function App() {
 
             <main>
 
+
                 {/* =================================================
                     NEWS EXPLORER
                 ================================================= */}
@@ -383,9 +395,12 @@ function App() {
                         News Explorer
                     </h2>
 
+
                     <p className="explorer-description">
+
                         Search and filter news articles
                         from the NewsPulse dataset.
+
                     </p>
 
 
@@ -394,8 +409,11 @@ function App() {
                     <div className="search-box">
 
                         <input
+
                             type="text"
+
                             placeholder="Search headline or description..."
+
                             value={searchText}
 
                             onChange={(e) =>
@@ -406,13 +424,14 @@ function App() {
 
                             onKeyDown={(e) => {
 
-                                if (
-                                    e.key === "Enter"
-                                ) {
+                                if (e.key === "Enter") {
+
                                     handleSearch();
+
                                 }
 
                             }}
+
                         />
 
 
@@ -429,21 +448,23 @@ function App() {
 
                     <div className="filters">
 
+
                         <select
-                            value={
-                                selectedCategory
-                            }
+
+                            value={selectedCategory}
 
                             onChange={(e) =>
                                 setSelectedCategory(
                                     e.target.value
                                 )
                             }
+
                         >
 
                             <option value="All">
                                 All Categories
                             </option>
+
 
                             {data.categories.map(
                                 item => (
@@ -452,7 +473,9 @@ function App() {
                                         key={item._id}
                                         value={item._id}
                                     >
+
                                         {item._id}
+
                                     </option>
 
                                 )
@@ -461,16 +484,17 @@ function App() {
                         </select>
 
 
+
                         <select
-                            value={
-                                selectedSentiment
-                            }
+
+                            value={selectedSentiment}
 
                             onChange={(e) =>
                                 setSelectedSentiment(
                                     e.target.value
                                 )
                             }
+
                         >
 
                             <option value="All">
@@ -492,21 +516,23 @@ function App() {
                         </select>
 
 
+
                         <select
-                            value={
-                                selectedYear
-                            }
+
+                            value={selectedYear}
 
                             onChange={(e) =>
                                 setSelectedYear(
                                     e.target.value
                                 )
                             }
+
                         >
 
                             <option value="All">
                                 All Years
                             </option>
+
 
                             {years
                                 .slice()
@@ -517,7 +543,9 @@ function App() {
                                         key={year}
                                         value={year}
                                     >
+
                                         {year}
+
                                     </option>
 
                                 )
@@ -526,11 +554,17 @@ function App() {
                         </select>
 
 
+
                         <button
+
                             className="reset-button"
+
                             onClick={handleReset}
+
                         >
+
                             Reset
+
                         </button>
 
                     </div>
@@ -541,7 +575,9 @@ function App() {
                     {searching && (
 
                         <p className="search-status">
+
                             Searching news...
+
                         </p>
 
                     )}
@@ -554,17 +590,23 @@ function App() {
 
                             <div className="results-section">
 
+
                                 <h3>
-                                    Search Results
-                                    {" "}
+
+                                    Search Results{" "}
+
                                     ({searchResults.length})
+
                                 </h3>
+
 
 
                                 {searchResults.length === 0 ? (
 
                                     <div className="no-results">
+
                                         No articles found.
+
                                     </div>
 
                                 ) : (
@@ -575,76 +617,97 @@ function App() {
                                             (article, index) => (
 
                                                 <div
+
                                                     className="article-card"
+
                                                     key={
                                                         article._id ||
                                                         index
                                                     }
+
                                                 >
 
                                                     <h3>
+
                                                         {
                                                             article.headline ||
                                                             "Untitled Article"
                                                         }
+
                                                     </h3>
 
 
                                                     <div className="article-meta">
 
+
                                                         <span className="category-tag">
+
                                                             {
                                                                 article.category
                                                             }
+
                                                         </span>
+
 
 
                                                         <span
+
                                                             className={
-                                                                `sentiment-tag ${
-                                                                    article.sentiment
-                                                                }`
+                                                                `sentiment-tag ${article.sentiment}`
                                                             }
+
                                                         >
+
                                                             {
                                                                 article.sentiment
                                                             }
+
                                                         </span>
+
 
 
                                                         <span>
+
                                                             {
                                                                 article.date
                                                             }
+
                                                         </span>
+
 
                                                     </div>
 
 
                                                     <p>
+
                                                         {
                                                             article.short_description ||
                                                             "No description available."
                                                         }
+
                                                     </p>
 
 
                                                     {article.authors && (
 
                                                         <small>
-                                                            Author:
-                                                            {" "}
+
+                                                            Author:{" "}
+
                                                             {
                                                                 article.authors
                                                             }
+
                                                         </small>
 
                                                     )}
 
 
+
                                                     {article.link && (
 
                                                         <a
+
                                                             href={
                                                                 article.link
                                                             }
@@ -652,8 +715,11 @@ function App() {
                                                             target="_blank"
 
                                                             rel="noreferrer"
+
                                                         >
+
                                                             Read Article →
+
                                                         </a>
 
                                                     )}
@@ -679,7 +745,9 @@ function App() {
                 ================================================= */}
 
                 <h2>
+
                     Dashboard Overview
+
                 </h2>
 
 
@@ -689,66 +757,96 @@ function App() {
 
                 <div className="cards">
 
+
                     <div className="card">
 
                         <h3>
+
                             Total Articles
+
                         </h3>
 
+
                         <p>
+
                             {totalArticles.toLocaleString()}
+
                         </p>
 
                     </div>
+
 
 
                     <div className="card">
 
                         <h3>
+
                             Categories
+
                         </h3>
 
+
                         <p>
+
                             {totalCategories}
+
                         </p>
 
                     </div>
+
 
 
                     <div className="card positive">
 
                         <h3>
+
                             Positive
+
                         </h3>
 
+
                         <p>
+
                             {positive.toLocaleString()}
+
                         </p>
 
                     </div>
+
 
 
                     <div className="card neutral">
 
                         <h3>
+
                             Neutral
+
                         </h3>
 
+
                         <p>
+
                             {neutral.toLocaleString()}
+
                         </p>
 
                     </div>
 
 
+
                     <div className="card negative">
 
                         <h3>
+
                             Negative
+
                         </h3>
 
+
                         <p>
+
                             {negative.toLocaleString()}
+
                         </p>
 
                     </div>
@@ -766,8 +864,11 @@ function App() {
                     <div className="chart-card">
 
                         <h2>
+
                             Top 10 News Categories
+
                         </h2>
+
 
                         <Plot
 
@@ -781,43 +882,63 @@ function App() {
                                     type: "bar",
 
                                     hovertemplate:
+
                                         "<b>%{x}</b><br>" +
+
                                         "Articles: %{y}" +
+
                                         "<extra></extra>"
 
                                 }
-
                             ]}
+
 
                             layout={{
 
                                 height: 500,
 
                                 margin: {
+
                                     l: 60,
+
                                     r: 20,
+
                                     t: 20,
+
                                     b: 120
+
                                 },
 
                                 xaxis: {
+
                                     title: "Category",
+
                                     tickangle: -45
+
                                 },
 
                                 yaxis: {
+
                                     title: "Articles"
+
                                 }
 
                             }}
 
+
                             config={{
+
                                 displayModeBar: false
+
                             }}
 
+
                             style={{
+
                                 width: "100%"
+
                             }}
+
 
                             useResizeHandler={true}
 
@@ -826,11 +947,15 @@ function App() {
                     </div>
 
 
+
                     <div className="chart-card">
 
                         <h2>
+
                             Articles by Year
+
                         </h2>
+
 
                         <Plot
 
@@ -843,46 +968,64 @@ function App() {
 
                                     type: "scatter",
 
-                                    mode:
-                                        "lines+markers",
+                                    mode: "lines+markers",
 
                                     hovertemplate:
+
                                         "<b>Year: %{x}</b><br>" +
+
                                         "Articles: %{y}" +
+
                                         "<extra></extra>"
 
                                 }
-
                             ]}
+
 
                             layout={{
 
                                 height: 500,
 
                                 margin: {
+
                                     l: 60,
+
                                     r: 20,
+
                                     t: 20,
+
                                     b: 60
+
                                 },
 
                                 xaxis: {
+
                                     title: "Year"
+
                                 },
 
                                 yaxis: {
+
                                     title: "Articles"
+
                                 }
 
                             }}
 
+
                             config={{
+
                                 displayModeBar: false
+
                             }}
 
+
                             style={{
+
                                 width: "100%"
+
                             }}
+
 
                             useResizeHandler={true}
 
@@ -900,13 +1043,19 @@ function App() {
                 <div className="chart-card full-width-chart">
 
                     <h2>
+
                         Trending Topics
+
                     </h2>
 
+
                     <p className="chart-description">
+
                         Most frequently occurring keywords
                         across news headlines and descriptions.
+
                     </p>
+
 
                     <Plot
 
@@ -920,43 +1069,63 @@ function App() {
                                 type: "bar",
 
                                 hovertemplate:
+
                                     "<b>%{x}</b><br>" +
+
                                     "Frequency: %{y}" +
+
                                     "<extra></extra>"
 
                             }
-
                         ]}
+
 
                         layout={{
 
                             height: 500,
 
                             margin: {
+
                                 l: 60,
+
                                 r: 30,
+
                                 t: 20,
+
                                 b: 120
+
                             },
 
                             xaxis: {
+
                                 title: "Keyword",
+
                                 tickangle: -45
+
                             },
 
                             yaxis: {
+
                                 title: "Frequency"
+
                             }
 
                         }}
 
+
                         config={{
+
                             displayModeBar: false
+
                         }}
 
+
                         style={{
+
                             width: "100%"
+
                         }}
+
 
                         useResizeHandler={true}
 
@@ -972,8 +1141,11 @@ function App() {
                 <div className="chart-card full-width-chart">
 
                     <h2>
+
                         Sentiment Distribution
+
                     </h2>
+
 
                     <Plot
 
@@ -992,37 +1164,53 @@ function App() {
                                     "label+percent",
 
                                 hovertemplate:
+
                                     "<b>%{label}</b><br>" +
+
                                     "Articles: %{value}<br>" +
+
                                     "Percentage: %{percent}" +
+
                                     "<extra></extra>"
 
                             }
-
                         ]}
+
 
                         layout={{
 
                             height: 500,
 
                             margin: {
+
                                 l: 20,
+
                                 r: 20,
+
                                 t: 20,
+
                                 b: 20
+
                             },
 
                             showlegend: true
 
                         }}
 
+
                         config={{
+
                             displayModeBar: false
+
                         }}
 
+
                         style={{
+
                             width: "100%"
+
                         }}
+
 
                         useResizeHandler={true}
 
@@ -1038,8 +1226,11 @@ function App() {
                 <div className="chart-card full-width-chart">
 
                     <h2>
+
                         Sentiment by Top 10 Categories
+
                     </h2>
+
 
                     <Plot
 
@@ -1057,6 +1248,7 @@ function App() {
 
                             },
 
+
                             {
 
                                 x: topCategoryNames,
@@ -1068,6 +1260,7 @@ function App() {
                                 type: "bar"
 
                             },
+
 
                             {
 
@@ -1083,6 +1276,7 @@ function App() {
 
                         ]}
 
+
                         layout={{
 
                             height: 550,
@@ -1090,30 +1284,47 @@ function App() {
                             barmode: "stack",
 
                             margin: {
+
                                 l: 60,
+
                                 r: 20,
+
                                 t: 20,
+
                                 b: 130
+
                             },
 
                             xaxis: {
+
                                 title: "Category",
+
                                 tickangle: -45
+
                             },
 
                             yaxis: {
+
                                 title: "Articles"
+
                             }
 
                         }}
 
+
                         config={{
+
                             displayModeBar: false
+
                         }}
 
+
                         style={{
+
                             width: "100%"
+
                         }}
+
 
                         useResizeHandler={true}
 
@@ -1129,45 +1340,67 @@ function App() {
                 <div className="chart-card full-width-chart">
 
                     <h2>
+
                         Top Category Trends Over Time
+
                     </h2>
+
 
                     <Plot
 
                         data={trendTraces}
+
 
                         layout={{
 
                             height: 550,
 
                             margin: {
+
                                 l: 60,
+
                                 r: 30,
+
                                 t: 20,
+
                                 b: 60
+
                             },
 
                             xaxis: {
+
                                 title: "Year"
+
                             },
 
                             yaxis: {
+
                                 title: "Articles"
+
                             },
 
                             legend: {
+
                                 orientation: "h"
+
                             }
 
                         }}
 
+
                         config={{
+
                             displayModeBar: false
+
                         }}
 
+
                         style={{
+
                             width: "100%"
+
                         }}
+
 
                         useResizeHandler={true}
 
@@ -1175,9 +1408,11 @@ function App() {
 
                 </div>
 
+
             </main>
 
         </div>
+
     );
 }
 
