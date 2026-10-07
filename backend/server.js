@@ -12,12 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-// =====================================================
-// MONGODB ATLAS
-// Explicitly use NewsPulse database
-// =====================================================
-
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
     dbName: "NewsPulse"
 })
@@ -29,33 +24,20 @@ mongoose.connect(process.env.MONGODB_URI, {
     console.error("MongoDB connection failed:", err.message);
 });
 
-
-// =====================================================
-// HOME
-// =====================================================
-
+// Test route
 app.get("/", (req, res) => {
     res.json({
         message: "NewsPulse backend is running"
     });
 });
 
-
-// =====================================================
-// ANALYTICS ROUTES
-// =====================================================
-
+// Analytics routes
 const analyticsRoutes = require("./routes/analytics");
-
 app.use("/api/analytics", analyticsRoutes);
 
+// Render provides PORT automatically
+const PORT = process.env.PORT || 5000;
 
-// =====================================================
-// SERVER
-// =====================================================
-
-const PORT = 5000;
-
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
 });

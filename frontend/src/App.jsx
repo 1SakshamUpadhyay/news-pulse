@@ -4,6 +4,7 @@ import Plot from "react-plotly.js";
 import "./App.css";
 
 function App() {
+
     // =====================================================
     // STATE
     // =====================================================
@@ -29,6 +30,7 @@ function App() {
     useEffect(() => {
 
         const loadData = async () => {
+
             try {
 
                 const [
@@ -162,18 +164,15 @@ function App() {
     const totalCategories =
         data.categories.length;
 
-
     const positive =
         data.sentiment.find(
             item => item._id === "positive"
         )?.totalArticles || 0;
 
-
     const neutral =
         data.sentiment.find(
             item => item._id === "neutral"
         )?.totalArticles || 0;
-
 
     const negative =
         data.sentiment.find(
@@ -188,12 +187,10 @@ function App() {
     const topCategories =
         data.categories.slice(0, 10);
 
-
     const topCategoryNames =
         topCategories.map(
             item => item._id
         );
-
 
     const topCategoryCounts =
         topCategories.map(
@@ -210,7 +207,6 @@ function App() {
             item => item._id
         );
 
-
     const yearCounts =
         data.years.map(
             item => item.totalArticles
@@ -225,7 +221,6 @@ function App() {
         data.sentiment.map(
             item => item._id
         );
-
 
     const sentimentCounts =
         data.sentiment.map(
@@ -247,7 +242,6 @@ function App() {
         const sentiment =
             item._id.sentiment;
 
-
         if (!sentimentMap[category]) {
 
             sentimentMap[category] = {
@@ -256,7 +250,6 @@ function App() {
                 negative: 0
             };
         }
-
 
         sentimentMap[category][sentiment] =
             item.totalArticles;
@@ -270,13 +263,11 @@ function App() {
                 sentimentMap[category]?.positive || 0
         );
 
-
     const categoryNeutral =
         topCategoryNames.map(
             category =>
                 sentimentMap[category]?.neutral || 0
         );
-
 
     const categoryNegative =
         topCategoryNames.map(
@@ -294,7 +285,6 @@ function App() {
             .slice(0, 5)
             .map(item => item._id);
 
-
     const trendMap = {};
 
     data.categoryTrends.forEach(item => {
@@ -305,11 +295,9 @@ function App() {
         const category =
             item._id.category;
 
-
         if (!trendMap[category]) {
             trendMap[category] = {};
         }
-
 
         trendMap[category][year] =
             item.totalArticles;
@@ -356,7 +344,6 @@ function App() {
             item => item._id
         );
 
-
     const keywordCounts =
         trendingKeywords.map(
             item => item.count
@@ -366,7 +353,6 @@ function App() {
     return (
 
         <div className="dashboard">
-
 
             {/* =================================================
                 HEADER
@@ -386,462 +372,6 @@ function App() {
 
 
             <main>
-
-
-                <h2>
-                    Dashboard Overview
-                </h2>
-
-
-                {/* =================================================
-                    KPI CARDS
-                ================================================= */}
-
-                <div className="cards">
-
-                    <div className="card">
-
-                        <h3>
-                            Total Articles
-                        </h3>
-
-                        <p>
-                            {totalArticles.toLocaleString()}
-                        </p>
-
-                    </div>
-
-
-                    <div className="card">
-
-                        <h3>
-                            Categories
-                        </h3>
-
-                        <p>
-                            {totalCategories}
-                        </p>
-
-                    </div>
-
-
-                    <div className="card positive">
-
-                        <h3>
-                            Positive
-                        </h3>
-
-                        <p>
-                            {positive.toLocaleString()}
-                        </p>
-
-                    </div>
-
-
-                    <div className="card neutral">
-
-                        <h3>
-                            Neutral
-                        </h3>
-
-                        <p>
-                            {neutral.toLocaleString()}
-                        </p>
-
-                    </div>
-
-
-                    <div className="card negative">
-
-                        <h3>
-                            Negative
-                        </h3>
-
-                        <p>
-                            {negative.toLocaleString()}
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                {/* =================================================
-                    TOP CATEGORIES + YEAR
-                ================================================= */}
-
-                <div className="charts-row">
-
-
-                    <div className="chart-card">
-
-                        <h2>
-                            Top 10 News Categories
-                        </h2>
-
-                        <Plot
-
-                            data={[
-                                {
-                                    x: topCategoryNames,
-                                    y: topCategoryCounts,
-                                    type: "bar",
-
-                                    hovertemplate:
-                                        "<b>%{x}</b><br>" +
-                                        "Articles: %{y}" +
-                                        "<extra></extra>"
-                                }
-                            ]}
-
-                            layout={{
-                                height: 500,
-
-                                margin: {
-                                    l: 60,
-                                    r: 20,
-                                    t: 20,
-                                    b: 120
-                                },
-
-                                xaxis: {
-                                    title: "Category",
-                                    tickangle: -45
-                                },
-
-                                yaxis: {
-                                    title: "Articles"
-                                }
-                            }}
-
-                            config={{
-                                displayModeBar: false
-                            }}
-
-                            style={{
-                                width: "100%"
-                            }}
-
-                            useResizeHandler={true}
-
-                        />
-
-                    </div>
-
-
-                    <div className="chart-card">
-
-                        <h2>
-                            Articles by Year
-                        </h2>
-
-                        <Plot
-
-                            data={[
-                                {
-                                    x: years,
-                                    y: yearCounts,
-
-                                    type: "scatter",
-
-                                    mode:
-                                        "lines+markers",
-
-                                    hovertemplate:
-                                        "<b>Year: %{x}</b><br>" +
-                                        "Articles: %{y}" +
-                                        "<extra></extra>"
-                                }
-                            ]}
-
-                            layout={{
-                                height: 500,
-
-                                margin: {
-                                    l: 60,
-                                    r: 20,
-                                    t: 20,
-                                    b: 60
-                                },
-
-                                xaxis: {
-                                    title: "Year"
-                                },
-
-                                yaxis: {
-                                    title: "Articles"
-                                }
-                            }}
-
-                            config={{
-                                displayModeBar: false
-                            }}
-
-                            style={{
-                                width: "100%"
-                            }}
-
-                            useResizeHandler={true}
-
-                        />
-
-                    </div>
-
-                </div>
-
-
-                {/* =================================================
-                    TRENDING TOPICS
-                ================================================= */}
-
-                <div className="chart-card full-width-chart">
-
-                    <h2>
-                        Trending Topics
-                    </h2>
-
-                    <p className="chart-description">
-                        Most frequently occurring keywords
-                        across news headlines and descriptions.
-                    </p>
-
-                    <Plot
-
-                        data={[
-                            {
-                                x: keywordNames,
-                                y: keywordCounts,
-
-                                type: "bar",
-
-                                hovertemplate:
-                                    "<b>%{x}</b><br>" +
-                                    "Frequency: %{y}" +
-                                    "<extra></extra>"
-                            }
-                        ]}
-
-                        layout={{
-                            height: 500,
-
-                            margin: {
-                                l: 60,
-                                r: 30,
-                                t: 20,
-                                b: 120
-                            },
-
-                            xaxis: {
-                                title: "Keyword",
-                                tickangle: -45
-                            },
-
-                            yaxis: {
-                                title: "Frequency"
-                            }
-                        }}
-
-                        config={{
-                            displayModeBar: false
-                        }}
-
-                        style={{
-                            width: "100%"
-                        }}
-
-                        useResizeHandler={true}
-
-                    />
-
-                </div>
-
-
-                {/* =================================================
-                    SENTIMENT
-                ================================================= */}
-
-                <div className="chart-card full-width-chart">
-
-                    <h2>
-                        Sentiment Distribution
-                    </h2>
-
-                    <Plot
-
-                        data={[
-                            {
-                                labels: sentimentNames,
-                                values: sentimentCounts,
-
-                                type: "pie",
-
-                                hole: 0.45,
-
-                                textinfo:
-                                    "label+percent",
-
-                                hovertemplate:
-                                    "<b>%{label}</b><br>" +
-                                    "Articles: %{value}<br>" +
-                                    "Percentage: %{percent}" +
-                                    "<extra></extra>"
-                            }
-                        ]}
-
-                        layout={{
-                            height: 500,
-
-                            margin: {
-                                l: 20,
-                                r: 20,
-                                t: 20,
-                                b: 20
-                            },
-
-                            showlegend: true
-                        }}
-
-                        config={{
-                            displayModeBar: false
-                        }}
-
-                        style={{
-                            width: "100%"
-                        }}
-
-                        useResizeHandler={true}
-
-                    />
-
-                </div>
-
-
-                {/* =================================================
-                    CATEGORY SENTIMENT
-                ================================================= */}
-
-                <div className="chart-card full-width-chart">
-
-                    <h2>
-                        Sentiment by Top 10 Categories
-                    </h2>
-
-                    <Plot
-
-                        data={[
-                            {
-                                x: topCategoryNames,
-                                y: categoryPositive,
-
-                                name: "Positive",
-                                type: "bar"
-                            },
-
-                            {
-                                x: topCategoryNames,
-                                y: categoryNeutral,
-
-                                name: "Neutral",
-                                type: "bar"
-                            },
-
-                            {
-                                x: topCategoryNames,
-                                y: categoryNegative,
-
-                                name: "Negative",
-                                type: "bar"
-                            }
-                        ]}
-
-                        layout={{
-                            height: 550,
-
-                            barmode: "stack",
-
-                            margin: {
-                                l: 60,
-                                r: 20,
-                                t: 20,
-                                b: 130
-                            },
-
-                            xaxis: {
-                                title: "Category",
-                                tickangle: -45
-                            },
-
-                            yaxis: {
-                                title: "Articles"
-                            }
-                        }}
-
-                        config={{
-                            displayModeBar: false
-                        }}
-
-                        style={{
-                            width: "100%"
-                        }}
-
-                        useResizeHandler={true}
-
-                    />
-
-                </div>
-
-
-                {/* =================================================
-                    CATEGORY TRENDS
-                ================================================= */}
-
-                <div className="chart-card full-width-chart">
-
-                    <h2>
-                        Top Category Trends Over Time
-                    </h2>
-
-                    <Plot
-
-                        data={trendTraces}
-
-                        layout={{
-                            height: 550,
-
-                            margin: {
-                                l: 60,
-                                r: 30,
-                                t: 20,
-                                b: 60
-                            },
-
-                            xaxis: {
-                                title: "Year"
-                            },
-
-                            yaxis: {
-                                title: "Articles"
-                            },
-
-                            legend: {
-                                orientation: "h"
-                            }
-                        }}
-
-                        config={{
-                            displayModeBar: false
-                        }}
-
-                        style={{
-                            width: "100%"
-                        }}
-
-                        useResizeHandler={true}
-
-                    />
-
-                </div>
-
 
                 {/* =================================================
                     NEWS EXPLORER
@@ -898,7 +428,6 @@ function App() {
                     {/* FILTERS */}
 
                     <div className="filters">
-
 
                         <select
                             value={
@@ -1141,6 +670,508 @@ function App() {
                             </div>
 
                         )}
+
+                </div>
+
+
+                {/* =================================================
+                    DASHBOARD OVERVIEW
+                ================================================= */}
+
+                <h2>
+                    Dashboard Overview
+                </h2>
+
+
+                {/* =================================================
+                    KPI CARDS
+                ================================================= */}
+
+                <div className="cards">
+
+                    <div className="card">
+
+                        <h3>
+                            Total Articles
+                        </h3>
+
+                        <p>
+                            {totalArticles.toLocaleString()}
+                        </p>
+
+                    </div>
+
+
+                    <div className="card">
+
+                        <h3>
+                            Categories
+                        </h3>
+
+                        <p>
+                            {totalCategories}
+                        </p>
+
+                    </div>
+
+
+                    <div className="card positive">
+
+                        <h3>
+                            Positive
+                        </h3>
+
+                        <p>
+                            {positive.toLocaleString()}
+                        </p>
+
+                    </div>
+
+
+                    <div className="card neutral">
+
+                        <h3>
+                            Neutral
+                        </h3>
+
+                        <p>
+                            {neutral.toLocaleString()}
+                        </p>
+
+                    </div>
+
+
+                    <div className="card negative">
+
+                        <h3>
+                            Negative
+                        </h3>
+
+                        <p>
+                            {negative.toLocaleString()}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {/* =================================================
+                    TOP CATEGORIES + YEAR
+                ================================================= */}
+
+                <div className="charts-row">
+
+
+                    <div className="chart-card">
+
+                        <h2>
+                            Top 10 News Categories
+                        </h2>
+
+                        <Plot
+
+                            data={[
+                                {
+
+                                    x: topCategoryNames,
+
+                                    y: topCategoryCounts,
+
+                                    type: "bar",
+
+                                    hovertemplate:
+                                        "<b>%{x}</b><br>" +
+                                        "Articles: %{y}" +
+                                        "<extra></extra>"
+
+                                }
+
+                            ]}
+
+                            layout={{
+
+                                height: 500,
+
+                                margin: {
+                                    l: 60,
+                                    r: 20,
+                                    t: 20,
+                                    b: 120
+                                },
+
+                                xaxis: {
+                                    title: "Category",
+                                    tickangle: -45
+                                },
+
+                                yaxis: {
+                                    title: "Articles"
+                                }
+
+                            }}
+
+                            config={{
+                                displayModeBar: false
+                            }}
+
+                            style={{
+                                width: "100%"
+                            }}
+
+                            useResizeHandler={true}
+
+                        />
+
+                    </div>
+
+
+                    <div className="chart-card">
+
+                        <h2>
+                            Articles by Year
+                        </h2>
+
+                        <Plot
+
+                            data={[
+                                {
+
+                                    x: years,
+
+                                    y: yearCounts,
+
+                                    type: "scatter",
+
+                                    mode:
+                                        "lines+markers",
+
+                                    hovertemplate:
+                                        "<b>Year: %{x}</b><br>" +
+                                        "Articles: %{y}" +
+                                        "<extra></extra>"
+
+                                }
+
+                            ]}
+
+                            layout={{
+
+                                height: 500,
+
+                                margin: {
+                                    l: 60,
+                                    r: 20,
+                                    t: 20,
+                                    b: 60
+                                },
+
+                                xaxis: {
+                                    title: "Year"
+                                },
+
+                                yaxis: {
+                                    title: "Articles"
+                                }
+
+                            }}
+
+                            config={{
+                                displayModeBar: false
+                            }}
+
+                            style={{
+                                width: "100%"
+                            }}
+
+                            useResizeHandler={true}
+
+                        />
+
+                    </div>
+
+                </div>
+
+
+                {/* =================================================
+                    TRENDING TOPICS
+                ================================================= */}
+
+                <div className="chart-card full-width-chart">
+
+                    <h2>
+                        Trending Topics
+                    </h2>
+
+                    <p className="chart-description">
+                        Most frequently occurring keywords
+                        across news headlines and descriptions.
+                    </p>
+
+                    <Plot
+
+                        data={[
+                            {
+
+                                x: keywordNames,
+
+                                y: keywordCounts,
+
+                                type: "bar",
+
+                                hovertemplate:
+                                    "<b>%{x}</b><br>" +
+                                    "Frequency: %{y}" +
+                                    "<extra></extra>"
+
+                            }
+
+                        ]}
+
+                        layout={{
+
+                            height: 500,
+
+                            margin: {
+                                l: 60,
+                                r: 30,
+                                t: 20,
+                                b: 120
+                            },
+
+                            xaxis: {
+                                title: "Keyword",
+                                tickangle: -45
+                            },
+
+                            yaxis: {
+                                title: "Frequency"
+                            }
+
+                        }}
+
+                        config={{
+                            displayModeBar: false
+                        }}
+
+                        style={{
+                            width: "100%"
+                        }}
+
+                        useResizeHandler={true}
+
+                    />
+
+                </div>
+
+
+                {/* =================================================
+                    SENTIMENT
+                ================================================= */}
+
+                <div className="chart-card full-width-chart">
+
+                    <h2>
+                        Sentiment Distribution
+                    </h2>
+
+                    <Plot
+
+                        data={[
+                            {
+
+                                labels: sentimentNames,
+
+                                values: sentimentCounts,
+
+                                type: "pie",
+
+                                hole: 0.45,
+
+                                textinfo:
+                                    "label+percent",
+
+                                hovertemplate:
+                                    "<b>%{label}</b><br>" +
+                                    "Articles: %{value}<br>" +
+                                    "Percentage: %{percent}" +
+                                    "<extra></extra>"
+
+                            }
+
+                        ]}
+
+                        layout={{
+
+                            height: 500,
+
+                            margin: {
+                                l: 20,
+                                r: 20,
+                                t: 20,
+                                b: 20
+                            },
+
+                            showlegend: true
+
+                        }}
+
+                        config={{
+                            displayModeBar: false
+                        }}
+
+                        style={{
+                            width: "100%"
+                        }}
+
+                        useResizeHandler={true}
+
+                    />
+
+                </div>
+
+
+                {/* =================================================
+                    CATEGORY SENTIMENT
+                ================================================= */}
+
+                <div className="chart-card full-width-chart">
+
+                    <h2>
+                        Sentiment by Top 10 Categories
+                    </h2>
+
+                    <Plot
+
+                        data={[
+
+                            {
+
+                                x: topCategoryNames,
+
+                                y: categoryPositive,
+
+                                name: "Positive",
+
+                                type: "bar"
+
+                            },
+
+                            {
+
+                                x: topCategoryNames,
+
+                                y: categoryNeutral,
+
+                                name: "Neutral",
+
+                                type: "bar"
+
+                            },
+
+                            {
+
+                                x: topCategoryNames,
+
+                                y: categoryNegative,
+
+                                name: "Negative",
+
+                                type: "bar"
+
+                            }
+
+                        ]}
+
+                        layout={{
+
+                            height: 550,
+
+                            barmode: "stack",
+
+                            margin: {
+                                l: 60,
+                                r: 20,
+                                t: 20,
+                                b: 130
+                            },
+
+                            xaxis: {
+                                title: "Category",
+                                tickangle: -45
+                            },
+
+                            yaxis: {
+                                title: "Articles"
+                            }
+
+                        }}
+
+                        config={{
+                            displayModeBar: false
+                        }}
+
+                        style={{
+                            width: "100%"
+                        }}
+
+                        useResizeHandler={true}
+
+                    />
+
+                </div>
+
+
+                {/* =================================================
+                    CATEGORY TRENDS
+                ================================================= */}
+
+                <div className="chart-card full-width-chart">
+
+                    <h2>
+                        Top Category Trends Over Time
+                    </h2>
+
+                    <Plot
+
+                        data={trendTraces}
+
+                        layout={{
+
+                            height: 550,
+
+                            margin: {
+                                l: 60,
+                                r: 30,
+                                t: 20,
+                                b: 60
+                            },
+
+                            xaxis: {
+                                title: "Year"
+                            },
+
+                            yaxis: {
+                                title: "Articles"
+                            },
+
+                            legend: {
+                                orientation: "h"
+                            }
+
+                        }}
+
+                        config={{
+                            displayModeBar: false
+                        }}
+
+                        style={{
+                            width: "100%"
+                        }}
+
+                        useResizeHandler={true}
+
+                    />
 
                 </div>
 
