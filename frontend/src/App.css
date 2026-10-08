@@ -1,400 +1,778 @@
-/* =====================================================
+/* =========================================================
    GLOBAL
-===================================================== */
+========================================================= */
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6fa;
-    color: #14213d;
+    background: #f4f7fb;
+    color: #172554;
 }
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD
+========================================================= */
 
 .dashboard {
-    width: 100%;
     min-height: 100vh;
-    background: #f4f6fa;
+    background: #f4f7fb;
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================================================
+   TOP HEADER
+========================================================= */
 
-.header {
-    width: 88%;
-    margin: 15px auto 0;
-    padding: 30px 20px 38px;
-    background: #1f2a3d;
-    color: white;
-    text-align: center;
+.top-header {
+    width: 100%;
+    min-height: 82px;
+    padding: 0 6%;
+    background: linear-gradient(110deg, #07152f 0%, #0b1d42 55%, #123f72 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(5, 20, 50, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.header h1 {
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0ea5e9;
+    font-size: 22px;
+    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+}
+
+.brand h1 {
     margin: 0;
-    font-size: 46px;
+    color: white;
+    font-size: 25px;
     font-weight: 700;
-    color: white !important;
+    letter-spacing: 0.2px;
 }
 
-.header p {
-    margin: 4px 0 0;
-    font-size: 21px;
-    color: #d8e1ef !important;
+.brand p {
+    margin: 2px 0 0;
+    color: #b8c9df;
+    font-size: 12px;
 }
 
 
-/* =====================================================
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-button {
+    border: none;
+    padding: 11px 22px;
+    border-radius: 22px;
+    background: transparent;
+    color: #d7e5f5;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-button.active {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+
+/* =========================================================
    MAIN
-===================================================== */
+========================================================= */
 
 main {
     width: 88%;
+    max-width: 1450px;
     margin: 0 auto;
-    padding: 70px 0 50px;
+    padding: 35px 0 60px;
 }
 
-main > h2 {
-    text-align: center;
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 220px;
+    padding: 35px 45px;
+    border-radius: 18px;
+    background: linear-gradient(110deg, #07152f 0%, #0d2855 55%, #155a91 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(10, 35, 75, 0.16);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    right: -90px;
+    top: -130px;
+    background: rgba(14, 165, 233, 0.13);
+}
+
+.hero-label {
+    color: #38d8f2;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.hero h2 {
+    margin: 9px 0 10px;
+    color: white;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.hero p {
+    margin: 0;
+    max-width: 650px;
+    color: #c4d5e9;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.hero-stat {
+    min-width: 210px;
+    padding: 24px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    position: relative;
+    z-index: 2;
+}
+
+.hero-stat span {
+    display: block;
+    color: #9eb5d0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero-stat strong {
+    display: block;
+    margin-top: 8px;
+    color: white;
+    font-size: 30px;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    margin: 4px 0 0;
+    color: #102552;
     font-size: 28px;
-    margin: 0 0 28px;
-    color: #14213d;
+}
+
+.section-heading p {
+    margin: 0 0 3px;
+    color: #71829c;
+    font-size: 14px;
+}
+
+.section-label {
+    color: #1687d8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 
-/* =====================================================
+/* =========================================================
    NEWS EXPLORER
-===================================================== */
+========================================================= */
 
 .news-explorer {
+    padding: 28px 30px;
     background: white;
-    padding: 34px;
-    border-radius: 15px;
-    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
-
-    /* Space between News Explorer and Dashboard Overview */
-    margin-bottom: 40px;
+    border: 1px solid #e2eaf3;
+    border-radius: 16px;
+    margin-bottom: 38px;
+    box-shadow: 0 7px 22px rgba(26, 54, 93, 0.07);
 }
 
-.news-explorer h2 {
-    text-align: center;
-    margin: 0;
-    font-size: 31px;
-    font-weight: 500;
-    color: #14213d;
-}
-
-.explorer-description {
-    text-align: center;
-    margin: 2px 0 30px;
-    font-size: 20px;
-    color: #60789a;
+.news-explorer .section-heading {
+    margin-bottom: 20px;
 }
 
 
-/* =====================================================
-   SEARCH BOX
-===================================================== */
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .search-box {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: 13px;
 }
 
-.search-box input {
+.search-input-wrapper {
     flex: 1;
-    height: 55px;
-    padding: 0 18px;
-    border: 1px solid #c7d3e3;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cbd8e8;
     border-radius: 9px;
+    background: #fbfdff;
+    transition: 0.2s ease;
+}
+
+.search-input-wrapper:focus-within {
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.08);
+}
+
+.search-icon {
+    margin-left: 16px;
     font-size: 17px;
+}
+
+.search-input-wrapper input {
+    flex: 1;
+    height: 100%;
+    border: none;
     outline: none;
-    color: #14213d;
+    background: transparent;
+    padding: 0 14px;
+    color: #172554;
+    font-size: 15px;
 }
 
-.search-box input:focus {
-    border-color: #2864e6;
+.search-input-wrapper input::placeholder {
+    color: #91a0b5;
 }
 
-.search-box button {
-    width: 115px;
-    height: 55px;
+.search-button {
+    width: 110px;
     border: none;
     border-radius: 9px;
-    background: #2864e6;
+    background: #2563eb;
     color: white;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.search-box button:hover {
-    background: #1f56cc;
+.search-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
 }
 
 
-/* =====================================================
+/* =========================================================
    FILTERS
-===================================================== */
+========================================================= */
 
 .filters {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 115px;
-    gap: 17px;
+    grid-template-columns: 1fr 1fr 1fr 110px;
+    gap: 12px;
 }
 
 .filters select {
-    height: 53px;
-    padding: 0 18px;
-    border: 1px solid #c7d3e3;
-    border-radius: 9px;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #d0dce9;
+    border-radius: 8px;
     background: white;
-    color: #14213d;
-    font-size: 16px;
+    color: #253b61;
+    font-size: 14px;
     outline: none;
     cursor: pointer;
 }
 
 .filters select:focus {
-    border-color: #2864e6;
+    border-color: #3182ce;
 }
 
-.filters button {
-    height: 53px;
+.reset-button {
+    height: 48px;
     border: none;
-    border-radius: 9px;
-    background: #687b98;
+    border-radius: 8px;
+    background: #64748b;
     color: white;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.filters button:hover {
-    background: #52657f;
+.reset-button:hover {
+    background: #475569;
 }
 
 
-/* =====================================================
+/* =========================================================
+   SEARCH STATUS
+========================================================= */
+
+.search-status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #eff6ff;
+    color: #2563eb;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* =========================================================
    SEARCH RESULTS
-===================================================== */
+========================================================= */
 
-.search-results {
-    margin-top: 30px;
+.results-section {
+    margin-top: 25px;
+    padding-top: 22px;
+    border-top: 1px solid #e5edf5;
 }
 
-.search-results h3 {
-    margin-bottom: 20px;
-    color: #14213d;
-    font-size: 22px;
-}
-
-.results-list {
+.results-heading {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.result-card {
-    padding: 20px;
-    background: #f8fafc;
-    border: 1px solid #dbe3ee;
-    border-radius: 10px;
-}
-
-.result-card h4 {
-    margin: 0 0 10px;
+.results-heading h3 {
+    margin: 0;
+    color: #172554;
     font-size: 19px;
-    color: #14213d;
 }
 
-.result-card p {
-    margin: 8px 0;
-    line-height: 1.5;
-    color: #52657f;
+.results-heading span {
+    color: #6c7e98;
+    font-size: 13px;
 }
 
-.result-card small {
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.article-card {
+    padding: 18px;
+    background: #f8fbff;
+    border: 1px solid #dce7f2;
+    border-radius: 11px;
+    transition: 0.2s ease;
+}
+
+.article-card:hover {
+    border-color: #b8cde4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(20, 50, 90, 0.07);
+}
+
+.article-card h3 {
+    margin: 10px 0 8px;
+    color: #172554;
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.article-card p {
+    margin: 0 0 10px;
+    color: #61728c;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.article-card small {
     display: block;
-    margin-top: 8px;
-    color: #687b98;
+    color: #8493a8;
+    font-size: 12px;
 }
 
-.result-card a {
+.article-card a {
     display: inline-block;
     margin-top: 12px;
-    color: #2864e6;
-    font-weight: 600;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 700;
     text-decoration: none;
 }
 
-.result-card a:hover {
+.article-card a:hover {
     text-decoration: underline;
 }
 
-
-/* =====================================================
-   RESULT TAGS
-===================================================== */
-
-.result-tags {
+.article-meta {
     display: flex;
-    gap: 10px;
+    gap: 7px;
+    align-items: center;
     flex-wrap: wrap;
-    margin: 10px 0;
 }
 
-.tag {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 13px;
-    font-weight: 600;
+.category-tag,
+.sentiment-tag,
+.date-tag {
+    padding: 5px 9px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 700;
 }
 
 .category-tag {
-    background: #e8eef9;
-    color: #35598a;
+    background: #e5efff;
+    color: #2864c7;
 }
 
-.positive-tag {
-    background: #e5f7e9;
-    color: #149447;
+.sentiment-tag.positive {
+    background: #dcfce7;
+    color: #16803c;
 }
 
-.neutral-tag {
-    background: #fff3d6;
-    color: #c48700;
+.sentiment-tag.neutral {
+    background: #fef3c7;
+    color: #a16207;
 }
 
-.negative-tag {
-    background: #ffe5e5;
-    color: #d92727;
+.sentiment-tag.negative {
+    background: #fee2e2;
+    color: #c02626;
+}
+
+.date-tag {
+    background: #eef2f7;
+    color: #66768e;
+}
+
+.no-results {
+    padding: 35px;
+    border-radius: 10px;
+    background: #f8fafc;
+    text-align: center;
+    color: #718096;
 }
 
 
-/* =====================================================
+/* =========================================================
+   DASHBOARD SECTION
+========================================================= */
+
+.dashboard-section {
+    scroll-margin-top: 100px;
+}
+
+.dashboard-heading {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
    KPI CARDS
-===================================================== */
+========================================================= */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 22px;
-    margin-bottom: 35px;
+    gap: 14px;
+    margin-bottom: 18px;
 }
 
 .card {
+    min-height: 105px;
+    padding: 18px;
     background: white;
-    padding: 28px 20px;
+    border: 1px solid #e1e9f2;
     border-radius: 13px;
-    text-align: center;
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 5px 17px rgba(30, 55, 90, 0.055);
+    transition: 0.2s ease;
 }
 
-.card h3 {
-    margin: 0 0 18px;
-    font-size: 18px;
-    color: #587092;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(30, 55, 90, 0.09);
 }
 
-.card p {
-    margin: 0;
-    font-size: 34px;
-    font-weight: 700;
-    color: #14213d;
+.card-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
 }
 
-.card.positive p {
-    color: #0ba53c;
+.card-icon.blue {
+    background: #e5efff;
 }
 
-.card.neutral p {
-    color: #d28b00;
+.card-icon.green {
+    background: #dcfce7;
 }
 
-.card.negative p {
-    color: #e32626;
+.card-icon.red {
+    background: #fee2e2;
+}
+
+.card-content span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7f9b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-content strong {
+    display: block;
+    color: #172554;
+    font-size: 23px;
+}
+
+.card.positive .card-content strong {
+    color: #16a34a;
+}
+
+.card.negative .card-content strong {
+    color: #dc2626;
 }
 
 
-/* =====================================================
-   CHART ROW
-===================================================== */
+/* =========================================================
+   CHART GRID
+========================================================= */
 
-.charts-row {
+.charts-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
 }
 
 
-/* =====================================================
+/* =========================================================
    CHART CARDS
-===================================================== */
+========================================================= */
 
-.chart-card {
+.chart-card,
+.full-chart-card {
     background: white;
+    border: 1px solid #e1e9f2;
     border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 18px 18px 10px;
+    box-shadow: 0 5px 17px rgba(30, 55, 90, 0.055);
     overflow: hidden;
 }
 
-.chart-card h2 {
-    margin: 5px 0 10px;
-    text-align: center;
-    color: #14213d;
-    font-size: 24px;
+.chart-title {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 2px 3px 5px;
 }
 
-.full-width-chart {
+.chart-title span {
+    color: #3480c9;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.chart-title h3 {
+    margin: 4px 0 0;
+    color: #1d3156;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FULL WIDTH CHART
+========================================================= */
+
+.full-chart-card {
+    margin-top: 16px;
+    padding-bottom: 10px;
+}
+
+
+/* =========================================================
+   LOADING / ERROR SCREEN
+   (dark background + white text, so it is always readable)
+   Use: <div className="loading-page"> ... </div>
+========================================================= */
+
+.loading-page,
+.error-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #07152f, #123f72);
+}
+
+.loading-page h2,
+.error-page h2 {
+    margin: 20px 0 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.loading-page p,
+.error-page p {
+    margin: 8px 0 0;
+    color: #b8c9df;
+    font-size: 14px;
+}
+
+.loading-spinner {
+    width: 42px;
+    height: 42px;
+    border: 4px solid rgba(255, 255, 255, 0.25);
+    border-top-color: #38d8f2;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
     width: 100%;
-    margin-bottom: 25px;
+    padding: 20px 6%;
+    background: #07152f;
+    display: flex;
+    justify-content: space-between;
+    color: #8fa5c1;
+    font-size: 11px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.chart-description {
-    text-align: center;
-    color: #64748b;
-    margin: 0 0 10px;
-}
-
-
-/* =====================================================
-   LOADING / ERROR
-===================================================== */
-
-.loading {
-    text-align: center;
-    padding: 80px 20px;
-    font-size: 22px;
-    color: #587092;
-}
-
-.error {
-    text-align: center;
-    padding: 40px;
-    color: #d92727;
-    font-size: 18px;
+footer span:first-child {
+    color: white;
+    font-weight: 700;
 }
 
 
-/* =====================================================
+/* =========================================================
    RESPONSIVE - TABLET
-===================================================== */
+========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
 
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
+    main {
+        width: 92%;
     }
 
-    .charts-row {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - SMALL TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .top-header {
+        padding: 0 4%;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .hero-stat {
+        width: 100%;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid {
         grid-template-columns: 1fr;
     }
 
@@ -402,57 +780,68 @@ main > h2 {
         grid-template-columns: 1fr 1fr;
     }
 
-    .filters button {
+    .reset-button {
         width: 100%;
     }
+
 }
 
 
-/* =====================================================
+/* =========================================================
    RESPONSIVE - MOBILE
-===================================================== */
+========================================================= */
 
 @media (max-width: 650px) {
 
-    .header {
-        width: 94%;
-        padding: 25px 15px 30px;
+    .top-header {
+        min-height: auto;
+        padding: 14px 5%;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .header h1 {
-        font-size: 36px;
-        color: white !important;
+    .brand {
+        width: 100%;
     }
 
-    .header p {
-        font-size: 17px;
-        color: #d8e1ef !important;
+    .navigation {
+        width: 100%;
+    }
+
+    .nav-button {
+        flex: 1;
     }
 
     main {
         width: 94%;
-        padding-top: 40px;
+        padding-top: 20px;
+    }
+
+    .hero {
+        padding: 28px 25px;
+    }
+
+    .hero h2 {
+        font-size: 29px;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
     .news-explorer {
-        padding: 22px;
-        margin-bottom: 40px;
-    }
-
-    .news-explorer h2 {
-        font-size: 26px;
-    }
-
-    .explorer-description {
-        font-size: 17px;
+        padding: 22px 18px;
     }
 
     .search-box {
         flex-direction: column;
     }
 
-    .search-box button {
+    .search-button {
         width: 100%;
+        height: 48px;
     }
 
     .filters {
@@ -463,11 +852,15 @@ main > h2 {
         grid-template-columns: 1fr;
     }
 
-    .chart-card {
-        padding: 12px;
+    .chart-card,
+    .full-chart-card {
+        padding: 15px 10px 5px;
     }
 
-    .chart-card h2 {
-        font-size: 21px;
+    footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
     }
+
 }
