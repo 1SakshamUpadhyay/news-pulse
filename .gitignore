@@ -1,2 +1,13 @@
+# Environment variables
 .env
+
+# Node dependencies
 node_modules/
+
+# Ignore CSV datasets
+*.csv
+
+# Ignore raw JSON datasets
+News_Category_Dataset_v3.json
+news_cleaned.json
+Newsdata_Records_*.json
